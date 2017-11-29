@@ -1,2 +1,2 @@
 # VUE
-a project of vue
+a frame building of vue.
