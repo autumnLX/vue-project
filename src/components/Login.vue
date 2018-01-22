@@ -34,9 +34,9 @@ export default {
     login () {
       this.info = ''
 
-      // if (!(this.username && this.password)) {
-      //   return (this.info = '账户和密码不能为空')
-      // }
+      if (!(this.username && this.password)) {
+        return (this.info = '账户和密码不能为空')
+      }
 
       $.post('/menus/unifyLogin', {
         identity: this.identity,

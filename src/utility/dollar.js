@@ -54,7 +54,6 @@ const createRequest = (callback) => {
       }
     }
   }
-
   return request
 }
 
@@ -98,8 +97,8 @@ export default {
   },
   post (url, data, callback, type = 'form') {
     let request = createRequest(callback)
-    let _url = /^\/mock\//.test(url) ? url : config.proxy + url
-    console.log(_url)
+    let _url = (window.Config ? '' : config.proxy) + url
+
     request.open('POST', _url)
 
     if (type === 'form') {

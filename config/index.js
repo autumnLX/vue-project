@@ -27,6 +27,22 @@ module.exports = {
     // If true, eslint errors and warnings will also be shown in the error overlay
     // in the browser.
     showEslintErrorsInOverlay: false,
+    proxyTable: {
+      '/api': {
+        target: 'http://zy.kami.com',
+        changeOrigin: true,
+        pathRewrite: function (path, req) {
+          return path.replace('/api', '');
+        }
+      },
+      '/cp': {
+        target: 'http://cp.kami.com',
+        changeOrigin: true,
+        pathRewrite: function (path, req) {
+          return path.replace('/cp', '');
+        }
+      }
+    },
 
     /**
      * Source Maps
