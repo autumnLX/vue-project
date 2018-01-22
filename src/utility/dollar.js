@@ -1,5 +1,5 @@
 import config from '@/config/config.js'
-import { unescape } from 'querystring';
+import { unescape } from 'querystring'
 
 /**
  * 扁平化数组，数组里面可以无限嵌套数组，但不可嵌套对象
@@ -99,18 +99,34 @@ export default {
   post (url, data, callback, type = 'form') {
     let request = createRequest(callback)
     let _url = /^\/mock\//.test(url) ? url : config.proxy + url
-
+    console.log(_url)
     request.open('POST', _url)
 
     if (type === 'form') {
       request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8')
       request.send(normalize(data))
     } else if (type === 'json') {
-      request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+      request.setRequestHeader('Content-Type', 'application/json; charset=utf-8')
       request.send(JSON.stringify(data))
     } else {
       request.send(data)
     }
+  },
+  mock (url, data, callback) {
+    let request
+
+    url = '/mock' + url
+
+    if (arguments.length === 3) {
+      request = createRequest(callback)
+      url = url + '?' + normalize(data)
+    } else {
+      request = createRequest(arguments[1])
+    }
+
+    request.open('GET', url)
+    request.setRequestHeader('Accept', 'application/json')
+    request.send()
   },
   now () {
     return (new Date()).toISOString().replace('T', ' ').replace(/\s(\d\d):/, (str, $1) => {

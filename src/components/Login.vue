@@ -22,7 +22,7 @@ import $ from '@/utility/dollar.js'
 
 export default {
   name: 'Login',
-  data() {
+  data () {
     return {
       identity: 'student',
       username: '',
@@ -31,10 +31,28 @@ export default {
     }
   },
   methods: {
-    login() {
-      console.log(1321321);
+    login () {
+      this.info = ''
+
+      // if (!(this.username && this.password)) {
+      //   return (this.info = '账户和密码不能为空')
+      // }
+
+      $.post('/menus/unifyLogin', {
+        identity: this.identity,
+        username: this.username,
+        password: this.password
+      }, (res) => {
+        console.log(res)
+      })
     }
-  }  
+  },
+  mounted () {
+    if (sessionStorage.getItem(sesstion.IDENTITY)) {
+      this.identity = sessionStorage.getItem(sesstion.IDENTITY)
+    }
+    this.$refs.username.focus()
+  }
 }
 </script>
 
